@@ -8,7 +8,7 @@ const Layout = ({ children }) => {
 
   return (
     <section id="sorter-image-app">
-      {user.token ? (
+      {user?.accessToken ? (
         <PrivateLayout>{children}</PrivateLayout>
       ) : (
         <AuthLayout>{children}</AuthLayout>

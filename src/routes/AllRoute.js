@@ -4,17 +4,17 @@ import { Redirect, Route } from "react-router-dom";
 
 // Public router components
 export const PublicRoute = ({ component: Component, ...rest }) => {
-  const { appId } = useSelector((state) => state.auth);
-  return appId ? (
-    <Redirect to="/app" from={rest.path} />
+  const { accessToken } = useSelector((state) => state.auth);
+  return accessToken ? (
+    <Redirect to="/clients" from={rest.path} />
   ) : (
     <Route {...rest} component={(props) => <Component {...props} />} />
   );
 };
 export const PrivateRoute = ({ component: Component, ...rest }) => {
-  const { appId } = useSelector((state) => state.auth);
+  const { accessToken } = useSelector((state) => state.auth);
 
-  return appId ? (
+  return accessToken ? (
     <Route {...rest} component={(props) => <Component {...props} />} />
   ) : (
     <Redirect to="/" from={rest.path} />
