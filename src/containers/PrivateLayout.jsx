@@ -7,7 +7,7 @@ import {
   MenuFoldOutlined,
 } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
-import { LogOut } from "../store/actions";
+// import { LogOut } from "../store/actions";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -16,7 +16,7 @@ const PrivateLayout = ({ children }) => {
 
   const dispatch = useDispatch();
   const onLogout = () => {
-    dispatch(LogOut());
+    // dispatch(LogOut());
   };
 
   return (

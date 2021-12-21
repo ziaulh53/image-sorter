@@ -1,9 +1,6 @@
-import {
-  getAuthData,
-  setAuthData,
-} from "../util/session";
+import { getAuthData,  setAuthData } from "../util/session";
 
-export const saveState = (state) => {
+export const saveState = state => {
   try {
     // Parsing auth data from Redux store
     let stateFilter = state;
@@ -19,7 +16,7 @@ export const persistedState = (() => {
     const auth = getAuthData();
     // if (Object.keys(auth).length === 0) return undefined;
     return {
-      auth
+      auth,
     };
   } catch (err) {
     return undefined;

@@ -5,8 +5,10 @@ import { PrivateRoute, PublicRoute } from "./AllRoute";
 import { createBrowserHistory } from "history";
 import { Layout } from "../containers";
 
-const AppRouter = () => {
-  const history = createBrowserHistory();
+
+export const history = createBrowserHistory();
+
+const RouterConfig = () => {
   return (
     <Router history={history}>
       <Layout>
@@ -23,4 +25,4 @@ const AppRouter = () => {
   );
 };
 
-export default AppRouter;
+export const AppRouter = RouterConfig;

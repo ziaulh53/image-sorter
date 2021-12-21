@@ -4,11 +4,11 @@ import AuthLayout from "./AuthLayout";
 import PrivateLayout from "./PrivateLayout";
 
 const Layout = ({ children }) => {
-  const user = useSelector((state) => state.auth);
+  const {isAuthenticated } = useSelector((state) => state.auth);
 
   return (
     <section id="sorter-image-app">
-      {user?.accessToken ? (
+      {isAuthenticated ? (
         <PrivateLayout>{children}</PrivateLayout>
       ) : (
         <AuthLayout>{children}</AuthLayout>

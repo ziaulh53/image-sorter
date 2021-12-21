@@ -1,34 +1,12 @@
 import { Button, Checkbox, Col, Form, Input, Row, Spin } from "antd";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { LogIn } from "../store/actions";
 // import { fstorage } from "../config";
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
-  //   const [allImages, setAllImages] = useState([]);
-
-  //   const upload = async (e) => {
-  //     const image = e.target.files[0];
-  //     fstorage.ref(`/images/${image.name}`).put(image);
-  //   };
-
-  //   const fetchImage = async () => {
-  //     let result = await fstorage.ref("images").listAll();
-  //     let urlPromises = result.items.map((imageRef) => imageRef.getDownloadURL());
-
-  //     return Promise.all(urlPromises);
-  //   };
-  //   useEffect(async () => {
-  //     const url = await fetchImage();
-  //     setAllImages(url);
-  //   }, []);
   const dispatch = useDispatch();
   const onSubmit = async (value) => {
-    setLoading(true);
-    const { email, password } = value;
-    await dispatch(LogIn({ email, password }));
-    setLoading(false);
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
