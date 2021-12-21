@@ -5,6 +5,7 @@ import { store } from "../store";
 import { Provider } from "react-redux";
 import AppRouter from "../routes";
 import Cookie from "js-cookie";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "antd/dist/antd.css";
 import "../styles/index.scss";
 

@@ -1,32 +1,30 @@
-import { Button, Checkbox, Col, Form, Input, Row, Spin } from "antd";
+import { Button, Col, Form, Input, Row, Spin } from "antd";
 import React from "react";
-import { useDispatch } from "react-redux";
 import { useMutation } from "@apollo/react-hooks";
-import { ADMIN_LOGIN } from "../graphql/modules";
+import { ADMIN_SIGNUP } from "../graphql/modules";
 import { successNotify, warnNotify } from "../util";
-import { loginUser } from "../store";
 import { Link } from "react-router-dom";
-// import { fstorage } from "../config";
 
-const Login = () => {
-  const dispatch = useDispatch();
-  const [handleLogin, {loading}] = useMutation(ADMIN_LOGIN);
+const Registration = ({ history }) => {
+  const [handleRegistration, { loading }] = useMutation(ADMIN_SIGNUP);
   const onSubmit = async (value) => {
-    const {email, password} = value;
+    const { email, password } = value;
     try {
       const {
-        data: { AdminLogin },
-      } = await handleLogin({
+        data: { AdminRegister },
+      } = await handleRegistration({
         variables: {
-          email: email,
-          password: password,
+          userInput: {
+            email: email,
+            password: password,
+          },
         },
       });
-      if (AdminLogin.success) {
-        successNotify(AdminLogin.message);
-        dispatch(loginUser(AdminLogin));
+      if (AdminRegister.success) {
+        successNotify(AdminRegister.message);
+        history.push("/reg");
       } else {
-        warnNotify(AdminLogin.message);
+        warnNotify(AdminRegister.message);
       }
     } catch (error) {}
   };
@@ -80,9 +78,40 @@ const Login = () => {
             >
               <Input.Password size="large" placeholder="Password" />
             </Form.Item>
+            <Form.Item
+              label="Confirm Password"
+              name="cpassword"
+              required
+              dependencies={["password"]}
+              tooltip="This is a required field"
+              wrapperCol={{ span: 24 }}
+              rules={[
+                {
+                  required: true,
+                  message: "Please confirm your password!",
+                },
+                ({ getFieldValue }) => ({
+                  validator(_, value) {
+                    if (!value || getFieldValue("password") === value) {
+                      return Promise.resolve();
+                    }
+                    return Promise.reject(
+                      new Error(
+                        "The two passwords that you entered do not match!"
+                      )
+                    );
+                  },
+                }),
+              ]}
+            >
+              <Input.Password size="large" placeholder="Password" />
+            </Form.Item>
 
             <Form.Item name="remember" valuePropName="checked">
-              <Checkbox>Remember me</Checkbox>
+              Already have an account?{" "}
+              <Link className="login-form-forgot" to="/">
+                Login
+              </Link>
             </Form.Item>
 
             <Form.Item
@@ -102,7 +131,6 @@ const Login = () => {
               >
                 Submit
               </Button>
-              Or <Link to="/reg">register now!</Link>
             </Form.Item>
           </Form>
         </Spin>
@@ -111,4 +139,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Registration;

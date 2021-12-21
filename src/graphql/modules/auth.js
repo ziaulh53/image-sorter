@@ -1,29 +1,24 @@
 import gql from "graphql-tag";
 
-export const USER_LOGIN = gql`
+export const ADMIN_LOGIN = gql`
   mutation ($email: String!, $password: String!) {
-    Login(email: $email, password: $password) {
+    AdminLogin(email: $email, password: $password) {
       code
       success
       message
       token
       user {
-        _id
-        firstname
-        lastname
-        avater
+        # _id
         email
-        phone
-        birthDate
-        timeZone
+        role
       }
     }
   }
 `;
 
-export const USER_SIGNUP = gql`
-  mutation Register($userInput: RegistrationInput) {
-    Register(userInput: $userInput) {
+export const ADMIN_SIGNUP = gql`
+  mutation AdminRegister($userInput: RegistrationInput) {
+    AdminRegister(userInput: $userInput) {
       code
       message
       success
@@ -31,7 +26,7 @@ export const USER_SIGNUP = gql`
   }
 `;
 
-export const USER_LOGOUT = gql`
+export const ADMIN_LOGOUT = gql`
   mutation Logout($code: String) {
     Logout(code: $code) {
       code
@@ -41,15 +36,15 @@ export const USER_LOGOUT = gql`
   }
 `;
 
-export const CHECK_USER_TOKEN = gql`
-  mutation IsValidToken($code: String) {
-    IsValidToken(code: $code) {
-      code
-      message
-      success
-    }
-  }
-`;
+// export const CHECK_USER_TOKEN = gql`
+//   mutation IsValidToken($code: String) {
+//     IsValidToken(code: $code) {
+//       code
+//       message
+//       success
+//     }
+//   }
+// `;
 
 export const FORGET_PASSWORD = gql`
   mutation ForgetPassword($email: String!) {

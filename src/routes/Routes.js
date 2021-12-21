@@ -1,14 +1,14 @@
 import {
   Login,
   Clients,
-  ClientsDetails,
+  Registration,
 } from "../pages";
 
 // Public
 export const Public = [
   { path: "/", exact: true, component: Login },
+  { path: "/reg", exact: true, component: Registration },
 ];
 export const Private = [
-  { path: "/clients", exact: true, component: Clients },
-  { path: "/clients/:id", exact: true, component: ClientsDetails },
+  { path: "/clients", component: Clients },
 ];
