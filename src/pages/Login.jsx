@@ -73,9 +73,10 @@ const loginWithVerificationCode = async () => {
           loading: verifyLoading,
           disabled: !code || verifyLoading,
         }}
+        maskClosable={false}
       >
         <div>
-          <label>Please input 2FA code</label>
+          <label>We've sent the verification code to your email.</label>
         </div>
         <Input
           size="large"
