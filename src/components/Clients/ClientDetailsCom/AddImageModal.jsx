@@ -31,7 +31,7 @@ const AddImageModal = ({ visible, setVisible, userId, refetch }) => {
         });
         if (SingleUpload.success) {
           file.push({
-            link: SingleUpload.imageLink,
+            link: SingleUpload.filename,
             user: userId
           });
           setImages([...file]);

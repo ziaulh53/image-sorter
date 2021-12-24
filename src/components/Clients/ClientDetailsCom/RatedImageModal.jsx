@@ -36,7 +36,7 @@ const RatedImageModal = ({ data, scoreImageVisible, setScoreImageVisible }) => {
               }
             >
               <Meta
-                title={item?.link?.split('-')[2]}
+                title={item?.link?.split('^')[1]}
                 description={`Score is: ${item?.score || 'Not given'}`}
               />
             </Card>
