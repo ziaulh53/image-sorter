@@ -8,6 +8,7 @@ import {
 } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
 import { logoutUser } from "../store/modules";
+import { Link } from "react-router-dom";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -36,7 +37,7 @@ const PrivateLayout = ({ children }) => {
         </div>
         <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
           <Menu.Item key="1" icon={<UsergroupAddOutlined />}>
-            Clients
+            <Link to="/clients">Clients</Link>
           </Menu.Item>
         </Menu>
       </Sider>
@@ -44,7 +45,11 @@ const PrivateLayout = ({ children }) => {
       <Layout className="site-layout">
         <Header
           className="site-layout-background"
-          style={{ display: "flex", justifyContent: "space-between", padding:"0 23px" }}
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            padding: "0 23px",
+          }}
         >
           <div>
             {React.createElement(

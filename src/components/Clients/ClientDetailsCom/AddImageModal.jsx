@@ -115,6 +115,7 @@ const AddImageModal = ({ visible, setVisible, userId, refetch }) => {
               style={{
                 width: "100%",
                 position: "relative",
+                height:"100px"
               }}
               alt=""
             />

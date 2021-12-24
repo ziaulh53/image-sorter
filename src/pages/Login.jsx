@@ -1,8 +1,8 @@
-import { Button, Checkbox, Col, Form, Input, Row, Spin } from "antd";
-import React from "react";
+import { Button, Checkbox, Col, Form, Input, Modal, Row, Spin } from "antd";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useMutation } from "@apollo/react-hooks";
-import { ADMIN_LOGIN } from "../graphql/modules";
+import { ADMIN_LOGIN, VERIFICATION_CODE } from "../graphql/modules";
 import { successNotify, warnNotify } from "../util";
 import { loginUser } from "../store";
 import { Link } from "react-router-dom";
@@ -10,26 +10,51 @@ import { Link } from "react-router-dom";
 
 const Login = () => {
   const dispatch = useDispatch();
-  const [handleLogin, {loading}] = useMutation(ADMIN_LOGIN);
+  const [code, setCode] = useState("");
+  const [visible, setVisible] = useState(false);
+  const [handleLogin, { loading }] = useMutation(ADMIN_LOGIN);
   const onSubmit = async (value) => {
-    const {email, password} = value;
+    const { email, password } = value;
     try {
       const {
         data: { AdminLogin },
       } = await handleLogin({
         variables: {
           email: email,
-          password: password,
+          password: atob(password),
         },
       });
       if (AdminLogin.success) {
-        successNotify(AdminLogin.message);
-        dispatch(loginUser(AdminLogin));
+        setVisible(true);
       } else {
         warnNotify(AdminLogin.message);
       }
     } catch (error) {}
   };
+
+
+  // verify
+  const [VerifyAccount, { loading: verifyLoading }] =
+  useMutation(VERIFICATION_CODE);
+const loginWithVerificationCode = async () => {
+  try {
+    const {
+      data: { Verify2FCodeAdmin },
+    } = await VerifyAccount({
+      variables: {
+        code,
+      },
+    });
+    if (Verify2FCodeAdmin.success) {
+      successNotify();
+      dispatch(loginUser(Verify2FCodeAdmin));
+      setVisible(false);
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
@@ -39,6 +64,26 @@ const Login = () => {
       align="middle"
       style={{ padding: "0 50px", minHeight: "100vh" }}
     >
+      <Modal
+        visible={visible}
+        title="Two Factor Login"
+        onOk={loginWithVerificationCode}
+        onCancel={() => setVisible(false)}
+        okButtonProps={{
+          loading: verifyLoading,
+          disabled: !code || verifyLoading,
+        }}
+      >
+        <div>
+          <label>Please input 2FA code</label>
+        </div>
+        <Input
+          size="large"
+          type="text"
+          placeholder="Code"
+          onChange={(e) => setCode(e.target.value)}
+        />
+      </Modal>
       <Col span={8}>
         <Spin spinning={loading}>
           <Form

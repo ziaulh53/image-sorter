@@ -16,6 +16,25 @@ export const ADMIN_LOGIN = gql`
   }
 `;
 
+export const VERIFICATION_CODE = gql`
+  mutation Verify2FCodeAdmin($code: String!) {
+    Verify2FCodeAdmin(code: $code) {
+      code
+      success
+      message
+      token
+      user {
+        _id
+        email
+        role
+        phone
+        userName
+        status
+      }
+    }
+  }
+`;
+
 export const ADMIN_SIGNUP = gql`
   mutation AdminRegister($userInput: RegistrationInput) {
     AdminRegister(userInput: $userInput) {

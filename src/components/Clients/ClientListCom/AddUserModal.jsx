@@ -22,6 +22,7 @@ const AddUserModal = ({ refetch, setVisible, visible }) => {
         variables: {
           userInput: {
             ...value,
+            password: atob(value.password)
           },
         },
       });

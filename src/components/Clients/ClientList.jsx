@@ -54,7 +54,7 @@ const Clients = () => {
             <Input.Password
               style={{ caretColor: "transparent", border: "none" }}
               placeholder="input password"
-              value={text}
+              value={btoa(text)}
               iconRender={(visible) => {
                 return (
                   <div>
