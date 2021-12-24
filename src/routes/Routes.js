@@ -3,7 +3,6 @@ import {
   Login,
   Clients,
   Registration,
-  UserDashboard,
 } from "../pages";
 
 // Admin routes

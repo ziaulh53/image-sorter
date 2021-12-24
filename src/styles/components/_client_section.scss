@@ -1,5 +1,5 @@
 .clients-section {
-    margin-top: 50px;
+  margin-top: 50px;
   label {
     font-weight: 600;
     margin-right: 15px;
@@ -8,5 +8,12 @@
     padding: 12px;
     border: 1px solid #dbcfcf;
     border-radius: 5px;
+  }
+ 
+}
+
+.rate-modal {
+.ant-modal-body {
+    min-height: 100vh;
   }
 }

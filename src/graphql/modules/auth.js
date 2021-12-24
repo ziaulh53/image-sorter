@@ -24,12 +24,8 @@ export const VERIFICATION_CODE = gql`
       message
       token
       user {
-        _id
         email
         role
-        phone
-        userName
-        status
       }
     }
   }
