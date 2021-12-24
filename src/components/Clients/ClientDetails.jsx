@@ -95,6 +95,7 @@ const ClientDetails = () => {
                   alignItems: "center",
                 }}
                 type="primary"
+                disabled={userImages?.length===0}
                 onClick={()=>onDownloadUserReview('good')}
               >
                 Good Score
@@ -111,6 +112,7 @@ const ClientDetails = () => {
                   alignItems: "center",
                 }}
                 type="primary"
+                disabled={userImages?.length===0}
                 onClick={()=>onDownloadUserReview('low')}
               >
                 Low Score
@@ -127,6 +129,7 @@ const ClientDetails = () => {
                   alignItems: "center",
                 }}
                 type="primary"
+                disabled={userImages?.length===0}
               >
                 <CSVLink style={{ color: "#fff" }} data={csvData}>
                   Download CSV
