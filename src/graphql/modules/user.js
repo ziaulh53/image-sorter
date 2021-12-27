@@ -19,6 +19,26 @@ export const FETCH_ALL_USER = gql`
   }
 `;
 
+export const UPDATE_USER = gql`
+  mutation UpdateUser($userId: ID, $userInput: RegistrationInput) {
+    UpdateUser(userId: $userId, userInput: $userInput) {
+      code
+      success
+      message
+    }
+  }
+`;
+
+export const DELETE_USER = gql`
+  mutation DeleteUser($userId: ID) {
+    DeleteUser(userId: $userId) {
+      code
+      success
+      message
+    }
+  }
+`;
+
 export const ADD_USER = gql`
   mutation AddUser($userInput: RegistrationInput) {
     AddUser(userInput: $userInput) {

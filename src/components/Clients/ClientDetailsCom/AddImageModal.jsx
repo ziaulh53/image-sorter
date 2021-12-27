@@ -5,7 +5,7 @@ import { useMutation } from "@apollo/react-hooks";
 import { ADD_IMAGES, SINGLE_FILE_UPLAOD } from "../../../graphql/modules";
 import { getImage, successNotify } from "../../../util";
 
-const AddImageModal = ({ visible, setVisible, userId, refetch }) => {
+const AddImageModal = ({ visible, setVisible, userId, refetch, sessionId }) => {
   // state for uplaoding images
   const [images, setImages] = useState([]);
 
@@ -32,7 +32,8 @@ const AddImageModal = ({ visible, setVisible, userId, refetch }) => {
         if (SingleUpload.success) {
           file.push({
             link: SingleUpload.filename,
-            user: userId
+            user: userId,
+            session: sessionId
           });
           setImages([...file]);
         }
@@ -98,6 +99,7 @@ const AddImageModal = ({ visible, setVisible, userId, refetch }) => {
               id="file-upload"
               multiple
               type="file"
+              accept="image/*"
               style={{
                 display: "none",
               }}

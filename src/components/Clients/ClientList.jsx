@@ -2,9 +2,11 @@ import {
   CopyOutlined,
   EyeInvisibleOutlined,
   EyeTwoTone,
+  DeleteFilled,
+  EyeOutlined,
 } from "@ant-design/icons/lib/icons";
 import { useQuery } from "@apollo/react-hooks";
-import { Button, Input, message, PageHeader, Table } from "antd";
+import { Button, Input, message, PageHeader, Popconfirm, Table } from "antd";
 import React, { useState } from "react";
 import CopyToClipboard from "react-copy-to-clipboard";
 import { Link } from "react-router-dom";
@@ -49,6 +51,7 @@ const Clients = () => {
       dataIndex: "password",
       width: "200px",
       render: (text) => {
+        console.log(Buffer.from(text).toString("base64"));
         return (
           <div className="d-flex align-items-center">
             <Input.Password
@@ -63,7 +66,7 @@ const Clients = () => {
                 );
               }}
             />
-            <CopyToClipboard text={text} onCopy={handlePasswordCopy}>
+            <CopyToClipboard text={btoa(text)} onCopy={handlePasswordCopy}>
               <CopyOutlined />
             </CopyToClipboard>
           </div>
@@ -79,7 +82,22 @@ const Clients = () => {
       title: <b>Action</b>,
       dataIndex: "phone",
       render: (_, record) => (
-        <Link to={`/clients/details/${record?._id}`}>View Details</Link>
+        <div>
+          <Link
+            style={{ marginRight: "10px" }}
+            to={`/clients/details/${record?._id}`}
+          >
+            <EyeOutlined />
+          </Link>
+          <Popconfirm
+            title="Are you sure?"
+            okButtonProps={{
+              type: "danger",
+            }}
+          >
+            <DeleteFilled style={{ color: "red" }} />
+          </Popconfirm>
+        </div>
       ),
     },
   ];

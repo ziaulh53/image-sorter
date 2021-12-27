@@ -40,26 +40,6 @@ const RatedImageModal = ({ data, scoreImageVisible, setScoreImageVisible }) => {
                 description={`Score is: ${item?.score || 'Not given'}`}
               />
             </Card>
-            {/* <img
-              src={getImage(item?.link)}
-              style={{
-                width: "100%",
-                position: "relative",
-                height: "170px",
-              }}
-              alt=""
-            />
-            <div
-              style={{
-                position: "absolute",
-                top: "0",
-                right: "16px",
-                color: "red",
-                cursor: "pointer",
-              }}
-            >
-              {item.score}
-            </div> */}
           </Col>
         ))}
       </Row>

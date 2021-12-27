@@ -5,7 +5,6 @@ import { useMutation } from "@apollo/react-hooks";
 import { ADMIN_LOGIN, VERIFICATION_CODE } from "../graphql/modules";
 import { successNotify, warnNotify } from "../util";
 import { loginUser } from "../store";
-import { Link } from "react-router-dom";
 // import { fstorage } from "../config";
 
 const Login = () => {
@@ -21,7 +20,7 @@ const Login = () => {
       } = await handleLogin({
         variables: {
           email: email,
-          password: atob(password),
+          password: password,
         },
       });
       if (AdminLogin.success) {
@@ -148,7 +147,6 @@ const loginWithVerificationCode = async () => {
               >
                 Submit
               </Button>
-              Or <Link to="/reg">register now!</Link>
             </Form.Item>
           </Form>
         </Spin>
