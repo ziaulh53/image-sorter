@@ -48,6 +48,8 @@ const loginWithVerificationCode = async () => {
       successNotify();
       dispatch(loginUser(Verify2FCodeAdmin));
       setVisible(false);
+    } else {
+      warnNotify(Verify2FCodeAdmin.message)
     }
   } catch (error) {
     console.log(error.message);

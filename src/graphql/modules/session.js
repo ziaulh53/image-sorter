@@ -29,7 +29,7 @@ export const FETCH_SINGLE_SESSION_ADMIN = gql`
           _id
           link
           position
-          score
+          postureSortScore
         }
         status
         createdAt

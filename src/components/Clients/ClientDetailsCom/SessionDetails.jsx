@@ -20,6 +20,7 @@ import {
 } from "../../../graphql/modules";
 import { CSVLink } from "react-csv";
 import DwnImages from "./New";
+import JSZip from "jszip";
 
 const SessionDetails = () => {
   const [visible, setVisible] = useState(false);
@@ -38,20 +39,48 @@ const SessionDetails = () => {
 
   const sessionData = data?.FetchSingleSessionAdmin?.result || {};
 
-  const onClickDownload = () => {
-    const dd = sessionData?.images || [];
+  const onClickDownload = async () => {
+    var zip = new JSZip();
+    var img = zip.folder("images");
+    console.log(scoreImages);
+    await scoreImages.map(async (item) => {
+      const response = await fetch(
+        "https://greatgable.fra1.cdn.digitaloceanspaces.com/996-1640615182996^download-(1).jpeg",
+        {}
+      );
+      response.blob().then((blob) => {
+        console.log(blob);
+        let url = window.URL.createObjectURL(blob);
+        // img.file(item.link?.split("^")[1], base64data);
+        console.log({ url });
+      });
+    });
+    // zip
+    //   .generateAsync({ type: "base64", name: "All Good Images" })
+    //   .then((content) => {
+    //     window.location = "data:application/zip;base64," + content;
+    //     // saveAs(content, "example.zip")
+    //   });
 
-    console.log(dd);
+    // const response = await fetch(pictures[i], {});
+    //   response.blob().then((blob) => {
+    //     console.log(blob);
+    //     let url = window.URL.createObjectURL(blob);
+    //     let a = document.createElement("a");
+    //     a.href = url;
+    //     a.download = "picture.jpeg";
+    //     a.click();
+    //   });
   };
 
   // seperate image by user score
   const scoreImages = [];
   const lowScoreImages = [];
   const dd = sessionData?.images?.map((img) => {
-    if (img.score) {
-      if (img?.score > 5) {
+    if (img.postureSortScore) {
+      if (img?.postureSortScore > 5) {
         scoreImages.push(img);
-      } else if (img?.score < 5) {
+      } else if (img?.postureSortScore < 5) {
         lowScoreImages.push(img);
       }
     }
@@ -82,12 +111,10 @@ const SessionDetails = () => {
         if (idx < 20) {
           collect.push({
             Image_Name: item?.link?.split("^")[1] || "",
-            Score: item?.score || "Not yet",
+            Score: item?.postureSortScore || "Not yet",
           });
         }
       });
-      console.log(dd);
-
       setCsvData(collect);
     }
   }, [sessionData?.images]);
@@ -220,7 +247,7 @@ const SessionDetails = () => {
       >
         <div className="mb-2 d-flex justify-content-between align-items-center">
           <div>
-            Score: <b>{visible.score || "Not given yet"}</b>
+            Score: <b>{visible.postureSortScore || "Not given yet"}</b>
           </div>
           {/* <div>
             <a
