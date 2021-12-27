@@ -19,6 +19,7 @@ import {
   FETCH_SINGLE_SESSION_ADMIN,
 } from "../../../graphql/modules";
 import { CSVLink } from "react-csv";
+import DwnImages from "./New";
 
 const SessionDetails = () => {
   const [visible, setVisible] = useState(false);
@@ -36,6 +37,12 @@ const SessionDetails = () => {
   });
 
   const sessionData = data?.FetchSingleSessionAdmin?.result || {};
+
+  const onClickDownload = () => {
+    const dd = sessionData?.images || [];
+
+    console.log(dd);
+  };
 
   // seperate image by user score
   const scoreImages = [];
@@ -87,9 +94,21 @@ const SessionDetails = () => {
 
   return (
     <WrapperDiv>
+      <DwnImages />
       <div className="d-flex justify-content-between align-items-center">
         <PageHeader title={`Bukcet: ${sessionData?.name || "Bucket"}`} />
         <div className="d-flex">
+          <Button
+            style={{
+              marginRight: "20px",
+              display: "flex",
+              alignItems: "center",
+            }}
+            type="primary"
+            onClick={onClickDownload}
+          >
+            Download
+          </Button>
           <Button
             icon={
               <SmileOutlined
